@@ -11,6 +11,7 @@
  *          1: data changed on leading edge of clk and captured on next edge)
  * Refer to the datasheet for more low-level details. */ 
 #include "stm32l432xx.h"
+#include "STM32L432KC_SPI.h"
 
 void initSPI(int br, int cpol, int cpha) {
 
@@ -29,7 +30,31 @@ void initSPI(int br, int cpol, int cpha) {
 
   // Set SPI characteristics
   SPI1->CR1 &= ~(0b111 << 3);
-  // TODO: case statement for br
+  switch(br) {
+      case DIV2:
+              break;
+      case DIV4:
+              SPI1->CR1 |= (0b001 << 3);
+              break;
+      case DIV8:
+              SPI1->CR1 |= (0b010 << 3);
+              break;
+      case DIV16:
+              SPI1->CR1 |= (0b011 << 3);
+              break;
+      case DIV32:
+              SPI1->CR1 |= (0b100 << 3);
+              break;
+      case DIV64:
+              SPI1->CR1 |= (0b101 << 3);
+              break;
+      case DIV128:
+              SPI1->CR1 |= (0b110 << 3);
+              break;
+      case DIV256:
+              SPI1->CR1 |= (0b111 << 3);
+              break;
+  }
 
   SPI1->CR1 &= ~(1 << 1);
   if (cpol == 1) {
@@ -49,6 +74,12 @@ void initSPI(int br, int cpol, int cpha) {
   SPI1->CR2 &= ~(0b1111 << 8);
   SPI1->CR2 |= (0b0111 << 8);
 
+  // Set to MSB First
+  SPI1->CR1 &= ~(1 << 7);
+
+  // Enable interrupt flags
+  SPI1->CR2 |= (0b11 << 6);
+
   // Enable SPI
   SPI1->CR1 |= (1 << 6);
 
@@ -58,15 +89,15 @@ void initSPI(int br, int cpol, int cpha) {
  *    -- send: the character to send over SPI
  *    -- return: the character received over SPI */
 char spiSendReceive(char send) {
-
-  // TODO: Complete this
+  // TODO: Does the order of this matter?
   // Check if data is ready to be written
-
+  while (!((SPI1->SR >> 1) & 1));
   // Write data
-
+  digitalRead(SDO_PIN);
   // Check if data is ready to be received
-
+  while (!((SPI1->SR >> 0) & 1));
   // Receive data
-    char received = (SPI1->DR >> 0);
+  char received = (SPI1->DR >> 0);
+
   return received;
 }

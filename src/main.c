@@ -68,7 +68,7 @@ int main(void) {
   
   USART_TypeDef * USART = initUSART(USART1_ID, 125000);
 
-  initSPI(8, CLKPOL, CLKPHASE);
+  initSPI(7, CLKPOL, CLKPHASE);
 
   while(1) {
     /* Wait for ESP8266 to send a request.

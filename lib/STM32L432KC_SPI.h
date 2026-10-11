@@ -9,6 +9,17 @@
 
 #include <stdint.h>
 #include <stm32l432xx.h>
+#include "STM32L432KC_GPIO.h"
+#include "DS1722.h"
+
+#define DIV2 0
+#define DIV4 1
+#define DIV8 2
+#define DIV16 3
+#define DIV32 4
+#define DIV64 5
+#define DIV128 6
+#define DIV256 7
 
 ///////////////////////////////////////////////////////////////////////////////
 // Function prototypes
