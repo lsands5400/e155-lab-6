@@ -16,12 +16,11 @@
 #define READ_ADDRESS_2 0x01 // LSB
 #define READ_ADDRESS_3 0x02 // MSB
 
-//TODO: Choose the actual pins for this
-#define SDO_PIN 6
-#define SDI_PIN 7
-#define CE_PIN 8
-#define SCLK_PIN 9
-#define SERMODE_PIN 10
+#define SDO_PIN PA6
+#define SDI_PIN PB0
+#define CE_PIN PB1
+#define SCLK_PIN PA5
+#define SERMODE_PIN PA8
 
 #define RES8 8
 #define RES9 9
