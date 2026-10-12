@@ -7,6 +7,7 @@
 #ifndef DS1772_H
 #define DS1772_H
 
+#include  <stm32l432xx.h>
 #include "STM32L432KC_GPIO.h"
 
 // Config register
@@ -17,7 +18,7 @@
 #define READ_ADDRESS_3 0x02 // MSB
 
 #define SDO_PIN PA6
-#define SDI_PIN PB0
+#define SDI_PIN PA12
 #define CE_PIN PB1
 #define SCLK_PIN PA5
 #define SERMODE_PIN PA8
@@ -28,6 +29,7 @@
 #define RES11 11
 #define RES12 12
 
+volatile int resolutionBits = 8;
 
 // Sets the resolution of the temperature readings by choosing the number of bits
 //    the sensor outputs (8, 9, 10, 11, or 12 bits)

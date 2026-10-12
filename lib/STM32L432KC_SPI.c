@@ -19,14 +19,12 @@ void initSPI(int br, int cpol, int cpha) {
   //  1. Wait until FTLVL[1:0] = 00 (no more data to transmit).
   while (!((SPI1->SR >> 11) & 1) & !((SPI1->SR >> 12) & 1));
   //  2. Wait until BSY=0 (the last data frame is processed).
-  while (!(SPI1->SR >> 7) & 1);
+  while (!((SPI1->SR >> 7) & 1));
   //  3. Disable the SPI (SPE=0).
   SPI1->CR1 &= ~(1 << 6);
   //  4. Read data until FRLVL[1:0] = 00 (read all the received data).
-  // TODO: How do I do this?
+  // TODO: How do I do this? Can I use the flags instead
   while (!((SPI1->SR >> 10) & 1) & !((SPI1->SR >> 9) & 1));
-
-  // TODO: Do I need to activate NSS?
 
   // Set SPI characteristics
   SPI1->CR1 &= ~(0b111 << 3);
@@ -89,15 +87,13 @@ void initSPI(int br, int cpol, int cpha) {
  *    -- send: the character to send over SPI
  *    -- return: the character received over SPI */
 char spiSendReceive(char send) {
-  // TODO: Does the order of this matter?
   // Check if data is ready to be written
   while (!((SPI1->SR >> 1) & 1));
   // Write data
-  digitalRead(SDO_PIN);
+  *((volatile char *) (&SPI1->DR)) = send; // Write: 8-bit access, one frame
   // Check if data is ready to be received
   while (!((SPI1->SR >> 0) & 1));
   // Receive data
-  char received = (SPI1->DR >> 0);
-
+  char received = *((volatile char *) (&SPI1->DR)); // Read: 8-bit access, one frame (FRXTH = 1)
   return received;
 }

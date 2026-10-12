@@ -8,7 +8,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "stm32l412xx.h"
+#include <stm32l412xx.h>
 #include "../lib/STM32L432KC_RCC.h"
 #include "../lib/STM32L432KC_GPIO.h"
 #include "../lib/STM32L432KC_USART.h"

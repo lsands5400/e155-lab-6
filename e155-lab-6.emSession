@@ -76,10 +76,10 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="main.c" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="71" useTextEdit="1" path="src/main.c" left="0" top="85" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="22" useTextEdit="1" path="src/main.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="31" y="35" useTextEdit="1" path="lib/DS1722.c" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="17" useTextEdit="1" path="lib/DS1722.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="74" useTextEdit="1" path="src/main.c" left="0" selected="1" top="75" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="6" y="20" useTextEdit="1" path="src/main.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="40" y="14" useTextEdit="1" path="lib/DS1722.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="20" useTextEdit="1" path="lib/DS1722.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC_FLASH.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC_FLASH.h" left="0" top="0" codecName="Default"/>
@@ -87,14 +87,15 @@
   <SessionOpenFile windowGroup="DockEditLeft" x="15" y="80" useTextEdit="1" path="lib/STM32L432KC_GPIO.c" left="0" top="43" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="19" y="12" useTextEdit="1" path="lib/STM32L432KC_SPI.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="20" y="14" useTextEdit="1" path="lib/STM32L432KC_RCC.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="41" y="91" useTextEdit="1" path="lib/STM32L432KC_SPI.c" left="0" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="8" y="22" useTextEdit="1" path="lib/STM32L432KC_SPI.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC_TIM.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC_USART.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="26" useTextEdit="1" path="lib/STM32L432KC_RCC.c" left="0" top="16" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC_TIM.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC_USART.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="lib/STM32L432KC_USART.c" left="0" top="38" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="STM32L4xx/Device/Include/stm32l4xx.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="STM32L4xx/Device/Source/system_stm32l4xx.c" left="0" top="77" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="1076" useTextEdit="1" path="STM32L4xx/Device/Include/stm32l432xx.h" left="0" top="1063" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="e155-lab-6" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/lindz/OneDrive/Documents/e155/Lab 4/lib" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

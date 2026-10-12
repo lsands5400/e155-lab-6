@@ -23,8 +23,26 @@ char* webpageStart = "<!DOCTYPE html><html><head><title>E155 Web Server Demo Web
 	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\
 	</head>\
 	<body><h1>E155 Web Server Demo Webpage</h1>";
-char* ledStr = "<p>LED Control:</p><form action=\"ledon\"><input type=\"submit\" value=\"Turn the LED on!\"></form>\
-	<form action=\"ledoff\"><input type=\"submit\" value=\"Turn the LED off!\"></form>";
+char* ledStr = "<p>LED Control:</p>\
+                  <form action=\"ledon\">\
+                  <input type=\"submit\" value=\"Turn the LED on!\">\
+                  </form>\
+                  <form action=\"ledoff\">\
+                  <input type=\"submit\" value=\"Turn the LED off!\">\
+                  </form>";
+char* resolutionButton = "<p>Resolution Control:</p>\
+                            <form action=\"setRes\">\
+                              <label for="resolution">Choose a resolution:</label>\
+                              <select name="resolution" id="resolution">\
+                                  <option value="8">1</option>\
+                                  <option value="9">0.5</option>\
+                                  <option value="10">0.25</option>\
+                                  <option value="11">0.125</option>\
+                                  <option value="12">0.0625</option>\
+                              </select>\
+                              <br><br>\
+                              <input type="submit" value="Submit">\
+                            </form>";
 char* webpageEnd   = "</body></html>";
 
 //determines whether a given character sequence is in a char array request, returning 1 if present, -1 if not present
@@ -49,6 +67,16 @@ int updateLEDStatus(char request[])
 	return led_status;
 }
 
+void updateResolution(char request[])
+{
+	// The request has been received. now process to determine what resolution value is being input
+	if (inString(request, "setRes")==1) {
+                // TODO: How do I get the resolution value out now?
+		// setResolution(resolution);
+	}
+}
+
+
 /////////////////////////////////////////////////////////////////
 // Solution Functions
 /////////////////////////////////////////////////////////////////
@@ -69,6 +97,7 @@ int main(void) {
   USART_TypeDef * USART = initUSART(USART1_ID, 125000);
 
   initSPI(7, CLKPOL, CLKPHASE);
+  initDS1772();
 
   while(1) {
     /* Wait for ESP8266 to send a request.
@@ -88,8 +117,10 @@ int main(void) {
     }
 
     // TODO: Add SPI code here for reading temperature
-    spiSendReceive(0b00000000);
-  
+    int temperature = spiSendReceive(0b00000000);
+    // TODO: convert in to char array
+    char* tempArr = ;
+
     // Update string with current LED state
   
     int led_status = updateLEDStatus(request);
@@ -102,7 +133,9 @@ int main(void) {
 
     // finally, transmit the webpage over UART
     sendString(USART, webpageStart); // webpage header code
+    sendString(USART, tempArr); // temperature value output
     sendString(USART, ledStr); // button for controlling LED
+    sendString(USART, resolutionButton); // button for resolution selection
 
     sendString(USART, "<h2>LED Status</h2>");
 
