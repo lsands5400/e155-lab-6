@@ -34,7 +34,7 @@ void initDS1772(void) {
   // Set pins
   pinMode(SDO_PIN, GPIO_ALT);
   pinMode(SDI_PIN, GPIO_ALT);
-  pinMode(CE_PIN, GPIO_INPUT);
+  pinMode(CE_PIN, GPIO_OUTPUT);
   pinMode(SERMODE_PIN, GPIO_INPUT);
   pinMode(SCLK_PIN, GPIO_ALT);
 

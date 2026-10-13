@@ -29,7 +29,7 @@
 #define RES11 11
 #define RES12 12
 
-volatile int resolutionBits = 8;
+// volatile int resolutionBits = 8;
 
 // Sets the resolution of the temperature readings by choosing the number of bits
 //    the sensor outputs (8, 9, 10, 11, or 12 bits)

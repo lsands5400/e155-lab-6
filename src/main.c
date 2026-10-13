@@ -15,7 +15,7 @@ Date: 9/14/19
 // Provided Constants and Functions
 /////////////////////////////////////////////////////////////////
 
-#define CLKPOL 0
+#define CLKPOL 1
 #define CLKPHASE 1
 
 //Defining the web page in two chunks: everything before the current time, and everything after the current time
@@ -32,16 +32,16 @@ char* ledStr = "<p>LED Control:</p>\
                   </form>";
 char* resolutionButton = "<p>Resolution Control:</p>\
                             <form action=\"setRes\">\
-                              <label for="resolution">Choose a resolution:</label>\
-                              <select name="resolution" id="resolution">\
-                                  <option value="8">1</option>\
-                                  <option value="9">0.5</option>\
-                                  <option value="10">0.25</option>\
-                                  <option value="11">0.125</option>\
-                                  <option value="12">0.0625</option>\
+                              <label >Choose a resolution:</label>\
+                              <select name=\"resolution\" id=\"resolution\">\
+                                  <option value=\"8\">1</option>\
+                                  <option value=\"9\">0.5</option>\
+                                  <option value=\"10\">0.25</option>\
+                                  <option value=\"11\">0.125</option>\
+                                  <option value=\"12\">0.0625</option>\
                               </select>\
                               <br><br>\
-                              <input type="submit" value="Submit">\
+                              <input type=\"submit\" value=\"Submit\">\
                             </form>";
 char* webpageEnd   = "</body></html>";
 
@@ -100,6 +100,10 @@ int main(void) {
   initDS1772();
 
   while(1) {
+    int temperature = spiSendReceive(0b00100000);
+  }
+
+  while(1) {
     /* Wait for ESP8266 to send a request.
     Requests take the form of '/REQ:<tag>\n', with TAG begin <= 10 characters.
     Therefore the request[] array must be able to contain 18 characters.
@@ -119,7 +123,7 @@ int main(void) {
     // TODO: Add SPI code here for reading temperature
     int temperature = spiSendReceive(0b00000000);
     // TODO: convert in to char array
-    char* tempArr = ;
+    // char* tempArr = ;
 
     // Update string with current LED state
   
@@ -133,7 +137,7 @@ int main(void) {
 
     // finally, transmit the webpage over UART
     sendString(USART, webpageStart); // webpage header code
-    sendString(USART, tempArr); // temperature value output
+    //sendString(USART, tempArr); // temperature value output
     sendString(USART, ledStr); // button for controlling LED
     sendString(USART, resolutionButton); // button for resolution selection
 

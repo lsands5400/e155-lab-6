@@ -14,17 +14,20 @@
 #include "STM32L432KC_SPI.h"
 
 void initSPI(int br, int cpol, int cpha) {
-
+  
+  
+  // Enable SPI register in RCC
+  RCC->APB2ENR |= (1 << 12);
   // Disable SPI
   //  1. Wait until FTLVL[1:0] = 00 (no more data to transmit).
-  while (!((SPI1->SR >> 11) & 1) & !((SPI1->SR >> 12) & 1));
-  //  2. Wait until BSY=0 (the last data frame is processed).
-  while (!((SPI1->SR >> 7) & 1));
+  //while (!((SPI1->SR >> 11) & 1) & !((SPI1->SR >> 12) & 1));
+  ////  2. Wait until BSY=0 (the last data frame is processed).
+  //while (!((SPI1->SR >> 7) & 1));
   //  3. Disable the SPI (SPE=0).
   SPI1->CR1 &= ~(1 << 6);
   //  4. Read data until FRLVL[1:0] = 00 (read all the received data).
   // TODO: How do I do this? Can I use the flags instead
-  while (!((SPI1->SR >> 10) & 1) & !((SPI1->SR >> 9) & 1));
+  // while (!((SPI1->SR >> 10) & 1) & !((SPI1->SR >> 9) & 1));
 
   // Set SPI characteristics
   SPI1->CR1 &= ~(0b111 << 3);
