@@ -18,8 +18,8 @@
 #define READ_ADDRESS_3 0x02 // MSB
 
 #define SDO_PIN PA6
-#define SDI_PIN PA12
 #define CE_PIN PB1
+#define SDI_PIN PA12
 #define SCLK_PIN PA5
 #define SERMODE_PIN PA8
 

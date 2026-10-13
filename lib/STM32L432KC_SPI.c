@@ -24,7 +24,7 @@ void initSPI(int br, int cpol, int cpha) {
   ////  2. Wait until BSY=0 (the last data frame is processed).
   //while (!((SPI1->SR >> 7) & 1));
   //  3. Disable the SPI (SPE=0).
-  SPI1->CR1 &= ~(1 << 6);
+  // SPI1->CR1 &= ~(1 << 6);
   //  4. Read data until FRLVL[1:0] = 00 (read all the received data).
   // TODO: How do I do this? Can I use the flags instead
   // while (!((SPI1->SR >> 10) & 1) & !((SPI1->SR >> 9) & 1));
@@ -67,19 +67,30 @@ void initSPI(int br, int cpol, int cpha) {
     SPI1->CR1 |= (1 << 0);
   }
 
+  // Set to MSB First
+  SPI1->CR1 &= ~(1 << 7);
+
   // Enable hardware CRC calculation and set CRC length
-  SPI1->CR1 |= (1 << 13);
-  SPI1->CR1 &= ~(1 << 11);
+  //SPI1->CR1 |= (1 << 13);
+  //SPI1->CR1 &= ~(1 << 11);
+
+  // Set MCU as master
+  SPI1->CR1 &= ~(1 << 2);
+  SPI1->CR1 |= (1 << 2);
 
   // Choose 8-bit data length
   SPI1->CR2 &= ~(0b1111 << 8);
   SPI1->CR2 |= (0b0111 << 8);
 
-  // Set to MSB First
-  SPI1->CR1 &= ~(1 << 7);
-
   // Enable interrupt flags
   SPI1->CR2 |= (0b11 << 6);
+
+  // Set SSOE
+  SPI1->CR2 &= ~(1 << 2);
+  SPI1->CR2 |= (1 << 2);
+
+  // Set FRXTH bit, should be 1 for 8-bit, 0 for 16-bit
+  SPI1->CR2 |= (1 << 12);
 
   // Enable SPI
   SPI1->CR1 |= (1 << 6);

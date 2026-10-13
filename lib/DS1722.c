@@ -52,7 +52,4 @@ void initDS1772(void) {
   GPIOA->AFR[1] &= ~(0b1111 << 16);
   GPIOA->AFR[1] |= (0b0101 << 16);
 
-  // Set CE to enable SCLK
-  digitalWrite(CE_PIN, PIO_HIGH);
-
 }

@@ -72,7 +72,7 @@ void updateResolution(char request[])
 	// The request has been received. now process to determine what resolution value is being input
 	if (inString(request, "setRes")==1) {
                 // TODO: How do I get the resolution value out now?
-		// setResolution(resolution);
+		//setResolution(resolution);
 	}
 }
 
@@ -96,12 +96,16 @@ int main(void) {
   
   USART_TypeDef * USART = initUSART(USART1_ID, 125000);
 
-  initSPI(7, CLKPOL, CLKPHASE);
   initDS1772();
+  initSPI(7, CLKPOL, CLKPHASE);
 
-  while(1) {
-    int temperature = spiSendReceive(0b00100000);
-  }
+  //while(1) {
+  //  // Set CE to enable SCLK
+  //  digitalWrite(CE_PIN, PIO_HIGH);
+  //  int temperature = spiSendReceive(0b00100000);
+  //  digitalWrite(CE_PIN, PIO_LOW);
+  //  delay_millis(TIM15, 10);
+  //}
 
   while(1) {
     /* Wait for ESP8266 to send a request.
@@ -120,8 +124,11 @@ int main(void) {
       request[charIndex++] = readChar(USART);
     }
 
-    // TODO: Add SPI code here for reading temperature
-    int temperature = spiSendReceive(0b00000000);
+    // Set CE to enable SCLK
+    digitalWrite(CE_PIN, PIO_HIGH);
+    int temperature = spiSendReceive(0b00100000);
+    digitalWrite(CE_PIN, PIO_LOW);
+    delay_millis(TIM15, 10);
     // TODO: convert in to char array
     // char* tempArr = ;
 
@@ -139,7 +146,7 @@ int main(void) {
     sendString(USART, webpageStart); // webpage header code
     //sendString(USART, tempArr); // temperature value output
     sendString(USART, ledStr); // button for controlling LED
-    sendString(USART, resolutionButton); // button for resolution selection
+    //sendString(USART, resolutionButton); // button for resolution selection
 
     sendString(USART, "<h2>LED Status</h2>");
 
