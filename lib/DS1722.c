@@ -8,25 +8,28 @@
 
 void setResolution(int numBits) {
   // Send address to write to
-  digitalWrite(SDI_PIN, WRITE_ADDRESS);
+  digitalWrite(CE_PIN, PIO_HIGH);
+  spiSendReceive(WRITE_ADDRESS);
   // Send resolution 
   switch (numBits) {
     case RES8:
-      digitalWrite(SDI_PIN, 0b11100000);
+      spiSendReceive(0b11100000);
       break;
     case RES9:
-      digitalWrite(SDI_PIN, 0b11100010);
+      spiSendReceive(0b11100010);
       break;
     case RES10:
-      digitalWrite(SDI_PIN, 0b11100100);
+      spiSendReceive(0b11100100);
       break;
     case RES11:
-      digitalWrite(SDI_PIN, 0b11100110);
+      spiSendReceive(0b11100110);
       break;
     case RES12:
-      digitalWrite(SDI_PIN, 0b11101000);
+      spiSendReceive(0b11101000);
       break;
   }
+  digitalWrite(CE_PIN, PIO_LOW);
+  delay_millis(TIM15, 10);
 }
 
 void initDS1772(void) {

@@ -14,4 +14,5 @@ Output/Debug/Obj/e155-lab-6/STM32L432KC_SPI.o: \
   C:\Users\lindz\OneDrive\Documents\SEGGER\ Embedded\ Studio\ Projects\e155-lab-6\STM32L4xx\Device\Include\system_stm32l4xx.h \
   C:\Users\lindz\OneDrive\Documents\SEGGER\ Embedded\ Studio\ Projects\e155-lab-6\lib\STM32L432KC_SPI.h \
   C:\Users\lindz\OneDrive\Documents\SEGGER\ Embedded\ Studio\ Projects\e155-lab-6\lib\STM32L432KC_GPIO.h \
-  C:\Users\lindz\OneDrive\Documents\SEGGER\ Embedded\ Studio\ Projects\e155-lab-6\lib\DS1722.h
+  C:\Users\lindz\OneDrive\Documents\SEGGER\ Embedded\ Studio\ Projects\e155-lab-6\lib\DS1722.h \
+  C:\Users\lindz\OneDrive\Documents\SEGGER\ Embedded\ Studio\ Projects\e155-lab-6\lib\STM32L432KC_TIM.h

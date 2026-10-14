@@ -67,13 +67,17 @@ int updateLEDStatus(char request[])
 	return led_status;
 }
 
-void updateResolution(char request[])
+int updateResolution(char request[])
 {
+        int resolution = 0;
 	// The request has been received. now process to determine what resolution value is being input
 	if (inString(request, "setRes")==1) {
-                // TODO: How do I get the resolution value out now?
-		//setResolution(resolution);
+            // TODO: How do I get the resolution value out now?
+            char* newRes = "document.getElementById(\"resolution\").value";
+            resolution = atoi(newRes);
+            setResolution(resolution);
 	}
+        return resolution;
 }
 
 
@@ -98,14 +102,7 @@ int main(void) {
 
   initDS1772();
   initSPI(7, CLKPOL, CLKPHASE);
-
-  //while(1) {
-  //  // Set CE to enable SCLK
-  //  digitalWrite(CE_PIN, PIO_HIGH);
-  //  int temperature = spiSendReceive(0b00100000);
-  //  digitalWrite(CE_PIN, PIO_LOW);
-  //  delay_millis(TIM15, 10);
-  //}
+  setResolution(12);
 
   while(1) {
     /* Wait for ESP8266 to send a request.
@@ -124,13 +121,34 @@ int main(void) {
       request[charIndex++] = readChar(USART);
     }
 
-    // Set CE to enable SCLK
+        // Set CE to enable SCLK
     digitalWrite(CE_PIN, PIO_HIGH);
-    int temperature = spiSendReceive(0b00100000);
+    spiSendReceive(READ_ADDRESS_3); // MSB
+    char temperature = spiSendReceive(READ_ADDRESS_2); // integer
     digitalWrite(CE_PIN, PIO_LOW);
     delay_millis(TIM15, 10);
-    // TODO: convert in to char array
-    // char* tempArr = ;
+    digitalWrite(CE_PIN, PIO_HIGH);
+    spiSendReceive(READ_ADDRESS_2); // LSB
+    char temperature2 = spiSendReceive(READ_ADDRESS_2); // decimal
+    float fraction = 0;
+    if ((temperature2 >> 8) & 1) {
+      fraction = fraction + 0.5;
+    }
+    if ((temperature2 >> 7) & 1) {
+      fraction = fraction + 0.25;
+    }
+    if ((temperature2 >> 6) & 1) {
+      fraction = fraction + 0.125;
+    }
+    if ((temperature2 >> 5) & 1) {
+      fraction = fraction + 0.0625;
+    }
+    digitalWrite(CE_PIN, PIO_LOW);
+    delay_millis(TIM15, 10);
+    float finalTemp = temperature + fraction;
+
+    char tempArr[56];
+    sprintf(tempArr, "%f", finalTemp);
 
     // Update string with current LED state
   
@@ -142,11 +160,12 @@ int main(void) {
     else if (led_status == 0)
       sprintf(ledStatusStr,"LED is off!");
 
+    int resolution = updateResolution(request);
+
+
     // finally, transmit the webpage over UART
     sendString(USART, webpageStart); // webpage header code
-    //sendString(USART, tempArr); // temperature value output
     sendString(USART, ledStr); // button for controlling LED
-    //sendString(USART, resolutionButton); // button for resolution selection
 
     sendString(USART, "<h2>LED Status</h2>");
 
@@ -154,7 +173,15 @@ int main(void) {
     sendString(USART, "<p>");
     sendString(USART, ledStatusStr);
     sendString(USART, "</p>");
-
+    
+    sendString(USART, "<h2>Temperature Reading</h2>");
+    sendString(USART, resolutionButton); // button for resolution selection
+    sendString(USART, "<p>");
+    sendString(USART, "Current Temp:");
+    sendString(USART, tempArr); // temperature value output
+    sendString(USART, "Current Resolution:");
+    sendString(USART, resolution);
+    sendString(USART, "</p>");
   
     sendString(USART, webpageEnd);
   }
